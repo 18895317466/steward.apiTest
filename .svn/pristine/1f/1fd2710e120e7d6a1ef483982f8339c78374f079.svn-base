@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.steward.dao.violation.RulesMapper">
+	<resultMap id="BaseResultMap" type="com.steward.model.violation.Rules">
+		<id column="id" jdbcType="CHAR" property="id" />
+		<result column="content" jdbcType="NVARCHAR" property="content" />
+		<result column="opr" jdbcType="NVARCHAR" property="opr" />
+		<result column="mobile" jdbcType="NVARCHAR" property="mobile" />
+		<result column="carNo" jdbcType="NVARCHAR" property="carNo" />
+		<result column="carId" jdbcType="CHAR" property="carId" />
+		<result column="zs" jdbcType="INTEGER" property="zs" />
+		<result column="ws" jdbcType="INTEGER" property="ws" />
+		<result column="bs" jdbcType="INTEGER" property="bs" />
+		<result column="bd" jdbcType="INTEGER" property="bd" />
+		<result column="addDate" jdbcType="TIMESTAMP" property="addDate" />
+	</resultMap>
+	<select id="selectById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from T_Violation_rules
+		where id = #{id,jdbcType=CHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.String">
+		delete from T_Violation_rules
+		where id = #{id,jdbcType=CHAR}
+	</delete>
+	<insert id="insertSe" parameterType="com.steward.model.violation.Rules">
+		insert into T_Violation_rules (id,content,opr,
+		mobile,carNo,carId,zs,ws,bs,bd,addDate)
+		values (#{id,jdbcType=CHAR}, #{content,jdbcType=NVARCHAR},
+		#{opr,jdbcType=NVARCHAR},#{mobile,jdbcType=VARCHAR}, 
+		#{carNo,jdbcType=NVARCHAR}, #{carId,jdbcType=CHAR},
+		#{zs,jdbcType=INTEGER},#{ws,jdbcType=INTEGER},
+		#{bs,jdbcType=INTEGER},#{bd,jdbcType=INTEGER},
+		#{addDate,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="update" parameterType="com.steward.model.violation.Rules">
+		update T_Violation_rules
+		<set>
+			<if test="content != null">
+				content = #{content,jdbcType=NVARCHAR},
+			</if>
+			<if test="opr != null">
+				opr = #{opr,jdbcType=NVARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="carNo != null">
+				carNo = #{carNo,jdbcType=NVARCHAR},
+			</if>
+			<if test="carId != null">
+				carId = #{carId,jdbcType=CHAR},
+			</if>
+			<if test="zs != null">
+				zs = #{zs,jdbcType=INTEGER},
+			</if>
+			<if test="ws != null">
+				ws = #{ws,jdbcType=INTEGER},
+			</if>
+			<if test="bs != null">
+				bs = #{bs,jdbcType=INTEGER},
+			</if>
+			<if test="bd != null">
+				bd = #{bd,jdbcType=INTEGER},
+			</if>
+			<if test="addDate != null">
+				addDate = #{addDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=CHAR}
+	</update>
+</mapper>

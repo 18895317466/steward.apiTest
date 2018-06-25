@@ -1,0 +1,14 @@
+package com.steward.dao.violation;
+
+import com.steward.model.violation.Rules;
+
+public interface RulesMapper {
+
+	Rules selectById(String id);
+	
+	void delete(String id);
+	
+	void insertSe(Rules rules);
+	
+	void update(Rules rules);
+}

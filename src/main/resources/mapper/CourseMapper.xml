@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.steward.dao.book.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.steward.model.book.Course">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="url" jdbcType="VARCHAR" property="url" />  
+     <result column="adddate" jdbcType="TIMESTAMP" property="adddate" />  
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,title,author,url,adddate
+  </sql>
+  <select id="courseList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from course
+    WHERE 1=1
+    <if test="title !=null">AND title=#{title}</if>
+    <if test="author">AND author=#{author}</if>
+    order By  adddate DESC LIMIT #{pageNumber},#{pageSize}
+  </select>
+    <select id="courseCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(1) from course
+    WHERE 1=1
+    <if test="title !=null">AND title=#{title}</if>
+    <if test="author">AND author=#{author}</if>  
+  </select>
+  
+  
+  <insert id="insert" parameterType="com.steward.model.book.Course">
+    insert into course (id, title, author, url, addDate
+    )  values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR} ,#{adddate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+</mapper>

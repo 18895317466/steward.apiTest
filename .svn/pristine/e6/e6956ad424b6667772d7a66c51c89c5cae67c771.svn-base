@@ -1,0 +1,5 @@
+jdbc.driverLocation=D:/workspace/repository/com/microsoft/sqlserver/mssql-jdbc/6.1.0.jre7/mssql-jdbc-6.1.0.jre7.jar
+jdbc.driverClass=com.microsoft.sqlserver.jdbc.SQLServerDriver
+jdbc.connectionURL=jdbc:sqlserver://192.168.0.70:1433;DatabaseName=lumadb0521
+jdbc.userId=sa
+jdbc.password=ba!123456*

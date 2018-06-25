@@ -1,0 +1,14 @@
+package com.steward.service.violation;
+
+import com.steward.model.violation.Rules;
+
+public interface RulesService {
+
+	Rules selectById(String id);
+	
+	void delete(String id);
+	
+	void insert(Rules rules);
+	
+	void update(Rules rules);
+}

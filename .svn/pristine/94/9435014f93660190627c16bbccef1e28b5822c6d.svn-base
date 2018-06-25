@@ -1,0 +1,37 @@
+package com.steward.service.violation.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.steward.dao.violation.RulesMapper;
+import com.steward.model.violation.Rules;
+import com.steward.service.violation.RulesService;
+
+@Service
+public class RulesServiceImpl implements RulesService {
+
+	@Resource
+	private  RulesMapper rulesMapper;
+	
+	@Override
+	public Rules selectById(String id) {
+		return rulesMapper.selectById(id);
+	}
+
+	@Override
+	public void delete(String id) {
+		rulesMapper.delete(id);
+	}
+
+	@Override
+	public void insert(Rules rules) {
+		rulesMapper.insertSe(rules);
+	}
+
+	@Override
+	public void update(Rules rules) {
+		rulesMapper.update(rules);
+	}
+
+}

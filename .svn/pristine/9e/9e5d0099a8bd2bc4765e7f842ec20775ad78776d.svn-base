@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!--导入属性配置-->
+	<properties resource="generator.propertites"/>
+    <!--指定特定数据库的jdbc驱动jar包的位置-->
+    <classPathEntry location="${jdbc.driverLocation}"/>
+
+    <context id="default" targetRuntime="MyBatis3">
+
+        <!-- optional，旨在创建class时，对注释进行控制 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--jdbc的数据库连接 -->
+        <jdbcConnection
+                driverClass="${jdbc.driverClass}"
+                connectionURL="${jdbc.connectionURL}"
+                userId="${jdbc.userId}"
+                password="${jdbc.password}">
+        </jdbcConnection>
+
+
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <!-- Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类
+            targetPackage     指定生成的model生成所在的包名
+            targetProject     指定在该项目下所在的路径
+        -->
+        <javaModelGenerator targetPackage="com.steward.model"
+                            targetProject="src/main/java">
+
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="false"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
+        <sqlMapGenerator targetPackage="com.steward.dao"
+                         targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+                type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+                type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+                type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+        -->
+        <javaClientGenerator targetPackage="com.steward.dao"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- <table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"> <columnOverride column="use_3rdLoginToken"
+			javaType="java.lang.String" jdbcType="VARCHAR" /> <columnOverride column="use_otherRegInfo"
+			javaType="java.lang.String" jdbcType="VARCHAR" /> <ignoreColumn column="use_photo"/>
+			<ignoreColumn column="use_photo1"/> </table> <table tableName="sys_user_setup"
+			domainObjectName="SysUserSetUp" enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			</table> -->
+        <!-- <table tableName="log_userPrintDefault" domainObjectName="UserPrintDefault"
+            enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"> <columnOverride
+            column="def_default" javaType="java.lang.String" jdbcType="VARCHAR" /> </table> -->
+        <!-- <table tableName="log_warehouse" domainObjectName="LogWarehouse" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false"> </table> -->
+        <!-- <table tableName="log_addressSend" domainObjectName="LogAddressSend"
+            enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"> </table> -->
+        <!-- <table tableName="pay_stripe_card" domainObjectName="PayStripeCard"
+            enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"> </table> <table
+            tableName="pay_stripe" domainObjectName="PayStripe" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false"> </table> -->
+        <!-- <table tableName="sys_role" domainObjectName="Role" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false"> <columnOverride column="rol_no"> <property
+            name="property" value="no"/> </columnOverride> <columnOverride column="rol_name">
+            <property name="property" value="name"/> </columnOverride> <columnOverride
+            column="rol_description"> <property name="property" value="description"/>
+            </columnOverride> <columnOverride column="rol_group"> <property name="property"
+            value="group"/> </columnOverride> <columnOverride column="rol_flag"> <property
+            name="property" value="flag"/> </columnOverride> <columnOverride column="rol_namecn">
+            <property name="property" value="nameCN"/> </columnOverride> <columnOverride
+            column="rol_descriptioncn"> <property name="property" value="descriptionCN"/>
+            </columnOverride> <columnOverride column="rol_orgno"> <property name="property"
+            value="orgNo"/> </columnOverride> </table> -->
+        <!-- <table tableName="app_static_config" domainObjectName="StaticConfig"
+            enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"> </table> -->
+
+        <!-- <table tableName="T_CM_Db" domainObjectName="Db"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Code" domainObjectName="Code"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_CountryWide" domainObjectName="CountryWide"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Day" domainObjectName="Day"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_DbShop" domainObjectName="DbShop"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Gift_Manager" domainObjectName="GiftManager"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_KM_Sub" domainObjectName="KmSub"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_KM_Sub_Detail" domainObjectName="KmSubDetail"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Menu" domainObjectName="Menu"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_MobileMenu" domainObjectName="MobileMenu"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Para_Multi" domainObjectName="ParaMulti"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Para_Multi" domainObjectName="ParaMulti"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Para_Section" domainObjectName="ParaSection"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Para_Single" domainObjectName="ParaSingle"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Role" domainObjectName="Role"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Shop" domainObjectName="Shop"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_Supplier" domainObjectName="Supplier"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_TypeTree" domainObjectName="TypeTree"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" />
+        <table tableName="T_CM_User" domainObjectName="User"
+            enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false" /> -->
+
+
+        <!-- <table tableName="T_Vip_CardType" domainObjectName="CardType"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Vip_CardType_SaleType" domainObjectName="SaleType"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Vip_CardType_Service" domainObjectName="CardTypeService"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_vip_Card" domainObjectName="Card"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_vip_Card_Credit" domainObjectName="CardCredit"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_vip_CardServices_Rela" domainObjectName="CardServicesRela"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" /> -->
+
+
+        <!-- <table tableName="T_Prd_Order" domainObjectName="Order"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Prd_Store" domainObjectName="Store"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Prd_Info" domainObjectName="ProductInfo"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Prd_StoreHouse" domainObjectName="StoreHouse"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />  -->
+
+
+        <!-- <table tableName="T_Sal_Consume" domainObjectName="Consume"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Sal_Consume_Crew" domainObjectName="ConsumeCrew"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Sal_Consume_Detail" domainObjectName="ConsumeDetail"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_Info" domainObjectName="StockInfo"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_Manage" domainObjectName="StockManage"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_Manage_Detail" domainObjectName="StockManageDetail"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_PickerMain" domainObjectName="StockPickerMain"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_PickerDetail" domainObjectName="StockPickerDetail"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_CustreturnMain" domainObjectName="StockCustreturnMain"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_CustreturnDetail" domainObjectName="StockCustreturnDetail"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_SuppreturnMain" domainObjectName="StockSuppreturnMain"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_SuppreturnDetail" domainObjectName="StockSuppreturnDetail"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_TransferMain" domainObjectName="StockTransferMain"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+        <table tableName="T_Stock_SuppreturnDetail" domainObjectName="StockSuppreturnDetail"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />-->
+
+
+
+        <!-- <table tableName="pay_apply" domainObjectName="PayApply" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+            selectByExampleQueryId="false"> </table> <table tableName="pay_applyLog"
+            domainObjectName="PayApplyLong" enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="pid_metaData" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> -->
+        <!-- <table tableName="log_shipmentExtend" domainObjectName="ShipmentExtend"
+            enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"> <columnOverride
+            column="ext_rateinfo" javaType="java.lang.String" jdbcType="VARCHAR" /> <columnOverride
+            column="ext_ratefee" javaType="java.lang.String" jdbcType="VARCHAR" /> <columnOverride
+            column="ext_pickupfee" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="ext_surcharge" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_dutyfee" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_mmjcharge" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_billcharge" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_packageinfo" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_insuredinfo" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_carrierinfo" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_paymentinfo" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_pickupinfo" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="ext_invaliderrmsg" javaType="java.lang.String"
+            jdbcType="VARCHAR" /> <columnOverride column="ext_rateerrmsg" javaType="java.lang.String"
+            jdbcType="VARCHAR" /> <ignoreColumn column="ext_commodityinfo" /> </table> -->
+
+
+
+        <!-- <table tableName="log_userShipDefault" domainObjectName="UserShipDefault"
+            enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false"> <columnOverride
+            column="def_packageinfo" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="def_carrierinfo1" javaType="java.lang.String" jdbcType="VARCHAR"
+            /> <columnOverride column="def_carrierinfo2" javaType="java.lang.String"
+            jdbcType="VARCHAR" /> <columnOverride column="def_insuranceinfo" javaType="java.lang.String"
+            jdbcType="VARCHAR" /> <columnOverride column="def_commodityinfo" javaType="java.lang.String"
+            jdbcType="VARCHAR" /> <columnOverride column="def_shippingtemplate" javaType="java.lang.String"
+            jdbcType="VARCHAR" /> </table>
+
+        <table tableName="T_Mob_GiftActive" domainObjectName="MobGiftActive"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false" />
+               -->
+
+        <table tableName="T_Mob_OilCardPay" domainObjectName="MobOilCardPay"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="false" />
+
+
+    </context>
+</generatorConfiguration>

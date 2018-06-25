@@ -1,0 +1,128 @@
+package com.steward.model.violation;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+public class Rules implements Serializable {
+	
+	/**
+	 *
+	 * @author ZHANGJL
+	 * @dateTime 2017年9月20日下午2:23:54
+	 */
+	private static final long serialVersionUID = 6199883090115903716L;
+
+	private  String id;
+	
+	private String content;
+	
+	private String opr;
+	
+	private String mobile;
+	
+	private String carNo;
+	
+	private String carId;
+	
+	private Integer zs;
+	
+	private Integer ws;
+	
+	private Integer bs;
+	
+	private Integer bd;
+	
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private Date addDate;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getOpr() {
+		return opr;
+	}
+
+	public void setOpr(String opr) {
+		this.opr = opr;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getCarNo() {
+		return carNo;
+	}
+
+	public void setCarNo(String carNo) {
+		this.carNo = carNo;
+	}
+
+	public String getCarId() {
+		return carId;
+	}
+
+	public void setCarId(String carId) {
+		this.carId = carId;
+	}
+
+	public Integer getZs() {
+		return zs;
+	}
+
+	public void setZs(Integer zs) {
+		this.zs = zs;
+	}
+
+	public Integer getWs() {
+		return ws;
+	}
+
+	public void setWs(Integer ws) {
+		this.ws = ws;
+	}
+
+	public Integer getBs() {
+		return bs;
+	}
+
+	public void setBs(Integer bs) {
+		this.bs = bs;
+	}
+
+	public Integer getBd() {
+		return bd;
+	}
+
+	public void setBd(Integer bd) {
+		this.bd = bd;
+	}
+
+	public Date getAddDate() {
+		return addDate;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+	
+}

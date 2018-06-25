@@ -1,0 +1,96 @@
+package com.steward.controller.violation;
+
+import java.util.Date;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.steward.commons.Result;
+import com.steward.commons.RulesUtils;
+import com.steward.model.violation.Rules;
+import com.steward.service.violation.RulesService;
+
+import net.sf.json.JSONObject;
+
+
+@RestController
+public class RulesController {
+
+	private static Logger logger = Logger.getLogger(RulesController.class);
+	
+	@Resource
+	private RulesService rulesService;
+	
+	/**
+	 * 手动违章查询
+	 * @param hpzl
+	 * @param hphm1b
+	 * @param hphm
+	 * @param fdjh
+	 * @param opr
+	 * @param mobile
+	 * @param carId
+	 * @param chariotestNo
+	 * @return
+	 *
+	 * @author ZHANGJL
+	 * @dateTime 2017年9月20日下午3:45:55
+	 */
+	@PostMapping("/main/ver1/selectRules/{random}")
+	public String selectRules(@RequestParam("hpzl")String hpzl,@RequestParam("hphm1b")String hphm1b,
+			@RequestParam("hphm")String hphm,@RequestParam("fdjh")String fdjh,
+			@RequestParam("opr")String opr,@RequestParam("mobile")String mobile,
+			@RequestParam("carId")String carId,@RequestParam("chariotestNo")String chariotestNo){
+		
+		logger.info("selectRules>>hpzl:\t"+hpzl+"\thphm1b:\t"+hphm1b+"\thphm:\t"+hphm+"\tfdjh:\t"+fdjh);
+		
+		Result<String> result = new Result<String>();
+		
+		String cookies = RulesUtils.getCookies().toString();
+		
+//		String token = RulesUtils.sendToken("C:\\maven_jar\\9001\\pic\\",cookies);
+		String token = RulesUtils.sendToken("C:\\Users\\Administrator\\Desktop\\",cookies);
+		JSONObject jsonObject = JSONObject.fromObject(token);
+		String str = "hpzl="+hpzl+"&hphm1b="+hphm1b+"&hphm="+hphm+"&fdjh="+fdjh.substring(fdjh.length()-6, fdjh.length())+"&captcha="+jsonObject.getString("pic_str")+"&qm=wf&page=1";
+		
+		String json = RulesUtils.send(str,cookies);
+		
+		JSONObject jObject = JSONObject.fromObject(json);
+		logger.info(json); 
+//		jObject.getJSONObject("data").getJSONObject("content");
+		if(jObject.getInt("code") != 200){
+			result.setCode(400);
+			result.setMessage("请填入正确的信息");
+			return com.alibaba.fastjson.JSONObject.toJSONString(result, SerializerFeature.WriteMapNullValue);
+		}
+		
+		if(jObject.getJSONObject("data").getJSONObject("content").getInt("zs") >0){
+			Rules rules = new Rules();
+			
+			rules.setId(UUID.randomUUID().toString().toUpperCase());
+			rules.setOpr(opr);
+			rules.setContent(json);
+			rules.setMobile(mobile);
+			rules.setCarNo(hphm);
+			rules.setCarId(carId);
+			rules.setZs(jObject.getJSONObject("data").getJSONObject("content").getInt("zs"));
+			rules.setWs(jObject.getJSONObject("data").getJSONObject("content").getInt("ws"));
+			rules.setBs(jObject.getJSONObject("data").getJSONObject("content").getInt("bs"));
+			rules.setBd(jObject.getJSONObject("data").getJSONObject("content").getInt("bd"));
+			rules.setAddDate(new Date());
+			
+			rulesService.insert(rules);
+		}		
+		return json;
+	}
+	public static void main(String[] args) {
+		System.out.println(System.currentTimeMillis());
+	}
+	
+}
